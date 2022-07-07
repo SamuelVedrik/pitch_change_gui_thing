@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pitch Thing</title>
+        <script type='text/javascript' src='/eel.js'></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            async function getPathToFile() {
+                let filename = await eel.getFolder()();
+                const selectedFile = document.getElementById("selectedfile");
+                selectedFile.innerHTML = filename;
+            };
+        </script>
+        <script type="text/javascript">
+            async function pitchShift() {
+                const selectedFile = document.getElementById("selectedfile");
+                const numSteps = document.getElementById("numSteps")
+                const filename = selectedFile.innerHTML;
+                let status = await eel.pitchShift(filename, numSteps);
+                document.getElementById("status").innerHTML = status
+            };
+        </script> 
+    </head>
+    
+    <body>
+        <button type="button" onclick="getPathToFile()">Select File</button>
+        <div>Selected File:</div> 
+        <div id="selectedfile"></div>
+        <label for="numSteps">Number of steps to shift</label>
+        <input type="number" step="any" id="numSteps"> 
+        <button type="button" onclick="pitchShift()">Convert</button>
+        <div id="divCheckbox" style="display: none;" id="status"></div>
+    </body>
+</html>
